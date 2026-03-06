@@ -1,0 +1,126 @@
+.imc-container {
+  min-height: 100vh;
+  background-color: #4d4d4d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HEADER */
+.header {
+  width: 90%;
+  background-color: #e5e5e5;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+}
+
+.logo {
+  width: 60px;
+}
+
+.btn-header {
+  background-color: #f28c28;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* VOLVER */
+.btn-volver {
+  margin-top: 25px;
+  background-color: #f28c28;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* CARD */
+.card {
+  margin-top: 25px;
+  background-color: #e5e5e5;
+  border: 2px solid #f28c28;
+  border-radius: 8px;
+  padding: 30px;
+  width: 350px;
+  text-align: center;
+}
+
+.card h2 {
+  background-color: #f28c28;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.card input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #e8b98d;
+  outline: none;
+}
+
+.btn-calcular {
+  margin-top: 15px;
+  background-color: #f28c28;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.resultado {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+/* FOOTER */
+footer {
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+.resultado {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f4f6ff;
+  border-radius: 10px;
+  color: black;
+}
+
+.plan-destacado {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #e8b98d;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+}
+
+.btn-siguiente {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f28c28;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-siguiente:hover {
+  background-color: #c7731f;
+}
