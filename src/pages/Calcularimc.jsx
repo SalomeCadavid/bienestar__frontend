@@ -38,7 +38,7 @@ function CalcularIMC() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:8000/api/usuarios/calcular-imc",
+        "https://bienestar-production-782f.up.railway.app/api/usuarios/calcular-imc",
         {
           method: "POST",
           headers: {

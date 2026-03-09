@@ -5,11 +5,13 @@ import { AuthContext } from "../context/AuthContext";
 import "./PlanDetalle.css";
 
 function PlanMantenimiento() {
+
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const adquirirPlan = async () => {
+
     if (!token) {
       alert("Debes iniciar sesión primero");
       navigate("/login");
@@ -17,30 +19,44 @@ function PlanMantenimiento() {
     }
 
     try {
+
       setLoading(true);
 
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/ordenes",
-        { producto_id: 5 },
+      await axios.post(
+        "https://bienestar-production-782f.up.railway.app/api/facturas",
+        {
+          productos: [
+            {
+              producto_id: 3,
+              cantidad: 1
+            }
+          ]
+        },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         }
       );
 
-      alert("Orden creada: " + response.data.orden.referencia_pago);
+      alert("Plan adquirido correctamente");
+
     } catch (error) {
-      console.error(error);
-      alert("Error al crear la orden");
+
+      console.log(error.response?.data);
+      alert(error.response?.data?.message || "Error al adquirir el plan");
+
     } finally {
       setLoading(false);
     }
+
   };
 
   return (
     <div className="plan-detalle-container">
+
       <h1>PLAN MANTENIMIENTO</h1>
+
       <p>
         Plan ideal para mantener tu peso ideal, mejorar resistencia y
         conservar hábitos saludables con seguimiento continuo.
@@ -49,8 +65,10 @@ function PlanMantenimiento() {
       <button onClick={adquirirPlan} disabled={loading}>
         {loading ? "Procesando..." : "Adquirir Plan"}
       </button>
+
     </div>
   );
+
 }
 
 export default PlanMantenimiento;

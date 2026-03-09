@@ -24,7 +24,12 @@ const AdminProductos = () => {
       console.log("ADMIN PRODUCTOS:", res.data); // 🔥 DEBUG
       setProductos(res.data || []);
     } catch (error) {
-      console.error("Error cargando productos:", error);
+
+      console.log("STATUS:", error.response?.status);
+      console.log("ERROR:", error.response?.data);
+
+      alert(error.response?.data?.message || "No se pudo eliminar el producto");
+
     } finally {
       setLoading(false);
     }
@@ -38,7 +43,8 @@ const AdminProductos = () => {
       await api.delete(`/productos/${id}`);
       cargarProductos();
     } catch (error) {
-      console.error("Error eliminando producto:", error);
+      console.log("STATUS:", error.response?.status);
+      console.log("ERROR:", error.response?.data);
     }
   };
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api"; // o donde tengas tu axios configurado
+import api from "../services/api";
 
 const Productos = () => {
   const [productos, setProductos] = useState([]);
@@ -30,7 +30,7 @@ const Productos = () => {
 
           {producto.imagen && (
             <img
-              src={`http://localhost:8000/storage/${producto.imagen}`}
+              src={`https://bienestar-production-782f.up.railway.app/storage/${producto.imagen}`}
               alt={producto.nombre}
               width="100"
             />

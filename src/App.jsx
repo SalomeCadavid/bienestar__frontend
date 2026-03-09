@@ -13,6 +13,12 @@ import Nosotros from "./pages/Nosotros";
 import Recomendaciones from "./pages/recomendaciones";
 import AdminProductos from "./pages/AdminProductos";
 
+/* PLANES */
+import PlanAumentoMasa from "./pages/PlanAumentoMasa";
+import PlanMantenimiento from "./pages/PlanMantenimiento";
+import PlanPerdidaGrasa from "./pages/PlanPerdidaGrasa";
+import PlanControlIntensivo from "./pages/PlanControlIntensivo";
+
 function App() {
   return (
     <AuthProvider>
@@ -37,21 +43,53 @@ function App() {
             }
           />
 
+          {/* PLANES INDIVIDUALES */}
+
           <Route
-            path="/nosotros"
-            element={<Nosotros />}
+            path="/planes/aumento-masa"
+            element={
+              <ProtectedRoute>
+                <PlanAumentoMasa />
+              </ProtectedRoute>
+            }
           />
 
           <Route
-            path="/recomendaciones"
-            element={<Recomendaciones />}
+            path="/planes/mantenimiento"
+            element={
+              <ProtectedRoute>
+                <PlanMantenimiento />
+              </ProtectedRoute>
+            }
           />
+
+          <Route
+            path="/planes/perdida-grasa"
+            element={
+              <ProtectedRoute>
+                <PlanPerdidaGrasa />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/planes/control-intensivo"
+            element={
+              <ProtectedRoute>
+                <PlanControlIntensivo />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/recomendaciones" element={<Recomendaciones />} />
 
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* 🔒 PROTEGIDAS */}
+          {/* PROTEGIDAS */}
+
           <Route
             path="/dashboard"
             element={
@@ -70,7 +108,8 @@ function App() {
             }
           />
 
-          {/* 🔒 SOLO ADMIN */}
+          {/* SOLO ADMIN */}
+
           <Route
             path="/admin-productos"
             element={
