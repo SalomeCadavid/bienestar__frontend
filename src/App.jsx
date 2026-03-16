@@ -12,6 +12,7 @@ import Planes from "./pages/Planes";
 import Nosotros from "./pages/Nosotros";
 import Recomendaciones from "./pages/recomendaciones";
 import AdminProductos from "./pages/AdminProductos";
+import Perfil from "./pages/Perfil";
 
 /* PLANES */
 import PlanAumentoMasa from "./pages/PlanAumentoMasa";
@@ -115,6 +116,14 @@ function App() {
             element={
               <ProtectedRoute requireAdmin={true}>
                 <AdminProductos />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/perfil"
+            element={
+              <ProtectedRoute>
+                <Perfil />
               </ProtectedRoute>
             }
           />

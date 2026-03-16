@@ -3,104 +3,152 @@ import { useNavigate } from "react-router-dom";
 import "./CalcularIMC.css";
 import logo from "../assets/TB.png";
 import { AuthContext } from "../context/AuthContext";
+import api from "../api/api";
 
 function CalcularIMC() {
+
   const navigate = useNavigate();
-  const { token } = useContext(AuthContext);
+  const { fetchUser, token } = useContext(AuthContext);
 
   const [genero, setGenero] = useState("");
   const [edad, setEdad] = useState("");
   const [peso, setPeso] = useState("");
   const [altura, setAltura] = useState("");
+
   const [resultado, setResultado] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // 🔥 Función que determina el plan según el IMC
   const obtenerPlan = (imc) => {
-    if (imc < 18.5) {
-      return "PLAN AUMENTO DE MASA";
-    } else if (imc >= 18.5 && imc <= 24.9) {
-      return "PLAN DE MANTENIMIENTO";
-    } else if (imc >= 25 && imc <= 29.9) {
-      return "PLAN PÉRDIDA DE GRASA";
-    } else {
-      return "PLAN DE CONTROL INTENSIVO";
-    }
+    if (imc < 18.5) return "PLAN AUMENTO DE MASA";
+    if (imc < 25) return "PLAN DE MANTENIMIENTO";
+    if (imc < 30) return "PLAN PÉRDIDA DE GRASA";
+    return "PLAN CONTROL INTENSIVO";
   };
 
   const calcularIMC = async () => {
+
     if (!peso || !altura) {
       alert("Por favor completa peso y altura");
       return;
     }
 
     try {
+
       setLoading(true);
 
-      const response = await fetch(
-        "https://bienestar-production-782f.up.railway.app/api/usuarios/calcular-imc",
+      /*
+      =========================
+      CALCULAR IMC
+      =========================
+      */
+
+      const res = await api.post(
+        "/usuarios/calcular-imc",
         {
-          method: "POST",
+          genero,
+          edad,
+          peso,
+          estatura: altura
+        },
+        {
           headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            genero,
-            edad,
-            peso,
-            estatura: altura,
-          }),
+            Authorization: `Bearer ${token}`
+          }
         }
       );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.error(data);
-        alert("Error al calcular IMC");
-        return;
-      }
+      const data = res.data;
 
       setResultado(data);
 
-      // 🔥 Determinar plan en frontend
-      const planCalculado = obtenerPlan(parseFloat(data.imc));
+      /*
+      =========================
+      GUARDAR PERFIL
+      =========================
+      */
 
-      // Guardar plan en localStorage
-      localStorage.setItem("plan_recomendado", planCalculado);
+      await api.put(
+        "/perfil",
+        {
+          genero,
+          edad,
+          peso,
+          estatura: altura
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      /*
+      =========================
+      REFRESCAR USUARIO
+      =========================
+      */
+
+      if (fetchUser) {
+        await fetchUser();
+      }
+
+      /*
+      =========================
+      GUARDAR PLAN
+      =========================
+      */
+
+      const plan = obtenerPlan(parseFloat(data.imc));
+      localStorage.setItem("plan_recomendado", plan);
 
     } catch (error) {
-      console.error("Error:", error);
-      alert("Error de conexión con el servidor");
+
+      console.error("ERROR COMPLETO:", error);
+
+      if (error.response) {
+        alert("Error del servidor: " + error.response.status);
+      } else {
+        alert("No se pudo conectar con el servidor");
+      }
+
     } finally {
+
       setLoading(false);
+
     }
+
   };
 
   return (
+
     <div className="imc-container">
 
       <div className="header">
-        <img src={logo} alt="logo" className="logo" />
+
+        <img src={logo} alt="logo" className="logo"/>
+
         <button
           className="home-btn"
           onClick={() => navigate("/")}
         >
           BIENESTAR TOTAL
         </button>
-        <img src={logo} alt="logo" className="logo" />
+
+        <img src={logo} alt="logo" className="logo"/>
+
       </div>
 
       <div className="card">
+
         <h2>CALCULAR IMC</h2>
 
-        <input
-          type="text"
-          placeholder="GENERO"
-          value={genero}
-          onChange={(e) => setGenero(e.target.value)}
-        />
+        // A un select, para evitar errores de tipeo:
+        <select value={genero} onChange={(e) => setGenero(e.target.value)}>
+          <option value="">SELECCIONA GÉNERO</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="O">Otro</option>
+        </select>
 
         <input
           type="number"
@@ -132,31 +180,44 @@ function CalcularIMC() {
         </button>
 
         {resultado && (
+
           <div className="resultado">
+
             <p>IMC: <strong>{resultado.imc}</strong></p>
+
             <p>Clasificación: <strong>{resultado.clasificacion}</strong></p>
 
             <div className="plan-destacado">
+
               Tu plan recomendado es:
-              <br />
+
+              <br/>
+
               <strong>
                 {obtenerPlan(parseFloat(resultado.imc))}
               </strong>
+
             </div>
 
             <button
               className="btn-siguiente"
-              onClick={() => navigate("/planes")}
+              onClick={() => navigate("/perfil")}
             >
-              Ver mi plan
+              IR A MI PERFIL
             </button>
+
           </div>
+
         )}
+
       </div>
 
       <footer>© 2025 BIENESTAR TOTAL.</footer>
+
     </div>
+
   );
+
 }
 
 export default CalcularIMC;

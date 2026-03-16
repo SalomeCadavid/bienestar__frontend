@@ -1,0 +1,80 @@
+.admin-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+.barra-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d1b2a;
+  padding: 15px 30px;
+}
+
+.logo-bt {
+  height: 50px;
+}
+
+.home-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.usuarios-admin {
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+.usuario-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: white;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.usuario-nombre {
+  font-weight: bold;
+}
+
+.botones {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-editar {
+  background: #2a9d8f;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-borrar {
+  background: #e63946;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+}
+
+.agregar-usuario {
+  text-align: center;
+  padding: 20px;
+  border: 2px dashed #aaa;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.plus {
+  font-size: 30px;
+  display: block;
+}
