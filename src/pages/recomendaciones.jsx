@@ -13,7 +13,7 @@ function Recomendaciones() {
       <header className="header">
         <img src={logo} alt="BT" className="logo-left" />
 
-        <button 
+        <button
           className="home-button"
           onClick={() => navigate("/")}
         >
@@ -39,11 +39,7 @@ function Recomendaciones() {
           <h3 className="subtitle">RECOMENDACIONES</h3>
 
           <p className="reco-text">
-            Tu punto de partida hacia una vida más activa.
-            Sabemos que dar el primer paso no siempre es fácil,
-            pero en Bienestar Total queremos acompañarte en cada movimiento.
-            Aquí encontrarás recomendaciones pensadas para ti,
-            que estás comenzando tu camino hacia una vida más saludable.
+            Tu cuerpo está en equilibrio, ¡y eso es un logro que vale la pena mantener! Con tu Plan de Mantenimiento, enfócate en sostener tus hábitos actuales: mantén una alimentación variada y balanceada, prioriza proteínas magras, frutas, verduras y carbohidratos de calidad. Combínalo con al menos 150 minutos de actividad física moderada a la semana, ya sea caminata, natación o ejercicio funcional. Recuerda hidratarte bien y descansar entre 7 y 8 horas diarias, porque el descanso es tan importante como el ejercicio. ¡Pequeñas constancias construyen grandes resultados!
           </p>
 
           <p className="reco-text">

@@ -1,0 +1,188 @@
+.pasarela-container {
+  min-height: 100vh;
+  background-color: #4a4a4a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Header */
+.pasarela-header {
+  background-color: white;
+  height: 70px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  margin-bottom: 25px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pasarela-logo {
+  width: 90px;
+  height: auto;
+}
+
+.pasarela-btn-home {
+  background-color: #f28c28;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 25px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.pasarela-btn-home:hover {
+  opacity: 0.85;
+}
+
+/* Título badge */
+.pasarela-titulo-badge {
+  margin-top: 4px;
+  background-color: #f28c28;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+/* Card */
+.pasarela-card {
+  margin-top: 16px;
+  background-color: white;
+  border: 3px solid #f28c28;
+  border-radius: 12px;
+  padding: 18px 20px;
+  width: 75%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+/* Tabs */
+.pasarela-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.pasarela-tab {
+  flex: 1;
+  padding: 7px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  background-color: #ddd;
+  color: #888;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+
+.pasarela-tab.activo {
+  background-color: #f28c28;
+  color: #000000;
+}
+
+/* Form */
+.pasarela-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pasarela-input {
+  background-color: #c8832a;
+  border: none;
+  border-radius: 20px;
+  padding: 9px 14px;
+  font-size: 11px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  outline: none;
+  letter-spacing: 1px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pasarela-input::placeholder {
+  color: #5c5c5c;
+}
+
+.pasarela-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pasarela-row .pasarela-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.pasarela-select {
+  background-color: hsl(34, 65%, 47%);
+  border: none;
+  border-radius: 20px;
+  padding: 9px 14px;
+  font-size: 11px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  outline: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+  appearance: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pasarela-select option {
+  color: black;
+  background-color: white;
+}
+
+/* Botón pagar */
+.pasarela-btn-pagar {
+  background-color: #f28c28;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 2px;
+  transition: opacity 0.2s;
+  width: 60%;
+  align-self: center;
+}
+
+.pasarela-btn-pagar:hover {
+  opacity: 0.85;
+}
+
+.pasarela-btn-pagar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Footer */
+.pasarela-footer {
+  margin-top: auto;
+  padding: 20px 0;
+  font-size: 12px;
+  color: #000000;
+}

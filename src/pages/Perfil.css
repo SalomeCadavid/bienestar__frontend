@@ -71,3 +71,19 @@ margin-left:auto;
 margin-right:auto;
 border:3px solid #f28c28;
 }
+
+.perfil-header {
+  background-color: white;
+  border-radius: 50px;
+  padding: 10px 20px;
+}
+
+.admin-btn {
+  background-color: #111;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}

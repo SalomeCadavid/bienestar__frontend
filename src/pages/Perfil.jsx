@@ -9,34 +9,27 @@ const Perfil = () => {
   const { user, logout, fetchUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // 🔥 Cargar usuario cuando se abre el perfil
   useEffect(() => {
-
     if (fetchUser) {
       fetchUser();
     }
-
   }, []);
 
+  const isAdmin = user?.rol_id === 1;
+
   const calcularEstadoIMC = () => {
-
     if (!user?.imc) return "Sin datos";
-
     if (user.imc < 18.5) return "Bajo peso";
     if (user.imc < 25) return "Normal";
     if (user.imc < 30) return "Sobrepeso";
-
     return "Obesidad";
   };
 
   const obtenerPlan = () => {
-
     if (!user?.imc) return "Sin plan";
-
     if (user.imc < 18.5) return "Aumento de masa";
     if (user.imc < 25) return "Mantenimiento";
     if (user.imc < 30) return "Pérdida de grasa";
-
     return "Control intensivo";
   };
 
@@ -44,21 +37,27 @@ const Perfil = () => {
     <div className="perfil-container">
 
       <div className="perfil-header">
-
-        <img src={logo} alt="BT" className="logo-bt"/>
-
+        <img src={logo} alt="BT" className="logo-bt" />
         <button
           className="home-btn"
           onClick={() => navigate("/")}
         >
           BIENESTAR TOTAL
         </button>
-
-        <img src={logo} alt="BT" className="logo-bt"/>
-
+        <img src={logo} alt="BT" className="logo-bt" />
       </div>
 
       <h2 className="titulo-perfil">PERFIL DE USUARIO</h2>
+
+      {/* Botón solo visible para admin */}
+      {isAdmin && (
+        <button
+          className="admin-btn"
+          onClick={() => navigate("/admin-usuarios")}
+        >
+          Dashboard Usuarios
+        </button>
+      )}
 
       <div className="perfil-grid">
 
@@ -67,17 +66,11 @@ const Perfil = () => {
           <h3>{user?.nombre || "Usuario"}</h3>
 
           <div className="perfil-info">
-
             <p><b>Email:</b> {user?.email || "No registrado"}</p>
-
             <p><b>Genero:</b> {user?.genero || "No registrado"}</p>
-
             <p><b>Edad:</b> {user?.edad || "No registrado"}</p>
-
             <p><b>Estatura:</b> {user?.estatura ? `${user.estatura} cm` : "No registrado"}</p>
-
             <p><b>Peso:</b> {user?.peso ? `${user.peso} kg` : "No registrado"}</p>
-
           </div>
 
           <button
@@ -94,15 +87,10 @@ const Perfil = () => {
           <h3>PLAN ACTIVO</h3>
 
           <div className="perfil-info">
-
             <p><b>IMC actual:</b> {user?.imc || "Sin datos"}</p>
-
             <p><b>Estado:</b> {calcularEstadoIMC()}</p>
-
             <p><b>Plan:</b> {obtenerPlan()}</p>
-
             <p><b>Duración:</b> 12 semanas</p>
-
           </div>
 
         </div>
@@ -123,10 +111,8 @@ const Perfil = () => {
         <button
           className="btn-perfil"
           onClick={() => {
-
             logout();
             navigate("/login");
-
           }}
         >
           CERRAR SESIÓN

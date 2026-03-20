@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api/api"; // 🔥 IMPORT CORRECTO
+import api from "../api/api";
 import "./AdminProductos.css";
 import ProductoModal from "../components/ProductoModal";
 import logo from "../assets/TB.png";
+
+const BASE_URL = "https://bienestar-production-782f.up.railway.app";
 
 const AdminProductos = () => {
   const [productos, setProductos] = useState([]);
@@ -21,23 +23,18 @@ const AdminProductos = () => {
     try {
       setLoading(true);
       const res = await api.get("/productos");
-      console.log("ADMIN PRODUCTOS:", res.data); // 🔥 DEBUG
       setProductos(res.data || []);
     } catch (error) {
-
       console.log("STATUS:", error.response?.status);
       console.log("ERROR:", error.response?.data);
-
-      alert(error.response?.data?.message || "No se pudo eliminar el producto");
-
+      alert(error.response?.data?.message || "No se pudo cargar los productos");
     } finally {
       setLoading(false);
     }
   };
 
   const eliminarProducto = async (id) => {
-    if (!window.confirm("¿Seguro que quieres eliminar este producto?"))
-      return;
+    if (!window.confirm("¿Seguro que quieres eliminar este producto?")) return;
 
     try {
       await api.delete(`/productos/${id}`);
@@ -45,6 +42,7 @@ const AdminProductos = () => {
     } catch (error) {
       console.log("STATUS:", error.response?.status);
       console.log("ERROR:", error.response?.data);
+      alert(error.response?.data?.error || "Error al eliminar el producto");
     }
   };
 
@@ -63,14 +61,9 @@ const AdminProductos = () => {
 
       <div className="barra-superior">
         <img src={logo} alt="logo" className="logo-bt" />
-
-        <button 
-          className="home-button"
-          onClick={() => navigate("/")}
-        >
+        <button className="home-button" onClick={() => navigate("/")}>
           BIENESTAR TOTAL
         </button>
-
         <img src={logo} alt="logo" className="logo-bt" />
       </div>
 
@@ -88,7 +81,7 @@ const AdminProductos = () => {
             <img
               src={
                 p.imagen
-                  ? `http://127.0.0.1:8000/storage/${p.imagen}`
+                  ? `${BASE_URL}/storage/${p.imagen}`
                   : "https://via.placeholder.com/100"
               }
               alt={p.nombre}
@@ -100,17 +93,10 @@ const AdminProductos = () => {
             </div>
 
             <div className="botones">
-              <button
-                className="btn-editar"
-                onClick={() => abrirEditar(p)}
-              >
+              <button className="btn-editar" onClick={() => abrirEditar(p)}>
                 EDITAR
               </button>
-
-              <button
-                className="btn-borrar"
-                onClick={() => eliminarProducto(p.id)}
-              >
+              <button className="btn-borrar" onClick={() => eliminarProducto(p.id)}>
                 BORRAR
               </button>
             </div>
@@ -132,6 +118,7 @@ const AdminProductos = () => {
           producto={productoEditando}
         />
       )}
+
     </div>
   );
 };

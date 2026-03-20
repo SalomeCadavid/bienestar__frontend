@@ -142,7 +142,6 @@ function CalcularIMC() {
 
         <h2>CALCULAR IMC</h2>
 
-        // A un select, para evitar errores de tipeo:
         <select value={genero} onChange={(e) => setGenero(e.target.value)}>
           <option value="">SELECCIONA GÉNERO</option>
           <option value="M">Masculino</option>

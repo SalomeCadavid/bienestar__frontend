@@ -6,49 +6,48 @@ const UsuarioModal = ({ cerrar, recargar, usuario }) => {
 
   const [form, setForm] = useState({
     nombre: usuario?.nombre || "",
-    email: usuario?.email || "",
-    password: "",
-    rol_id: usuario?.rol_id || ""
+    email:  usuario?.email  || "",
+    rol_id: usuario?.rol_id || "2",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError]     = useState("");
+
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const guardar = async () => {
+    setError("");
+    setLoading(true);
 
     try {
-
-      if (usuario) {
-
-        await api.put(`/usuarios/${usuario.id}`, form);
-
-      } else {
-
-        await api.post("/usuarios", form);
-
-      }
-
+      await api.put(`/usuarios/${usuario.id}`, form);
       recargar();
       cerrar();
-
-    } catch (error) {
-
-      console.error(error);
-
+    } catch (err) {
+      console.error("ERROR:", err.response?.data || err);
+      const errores = err.response?.data?.errors;
+      if (errores) {
+        const primero = Object.values(errores)[0][0];
+        setError(primero);
+      } else {
+        setError(err.response?.data?.message || "Error al guardar el usuario");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-
     <div className="modal-overlay">
-
       <div className="modal-content">
 
-        <h2>{usuario ? "Editar Usuario" : "Nuevo Usuario"}</h2>
+        <h2>Editar Usuario</h2>
+
+        {error && (
+          <p style={{ color: "red", marginBottom: 8 }}>{error}</p>
+        )}
 
         <input
           name="nombre"
@@ -64,31 +63,20 @@ const UsuarioModal = ({ cerrar, recargar, usuario }) => {
           onChange={handleChange}
         />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-        />
-
-        <select
-          name="rol_id"
-          value={form.rol_id}
-          onChange={handleChange}
-        >
-          <option value="">Seleccionar rol</option>
+        <select name="rol_id" value={form.rol_id} onChange={handleChange}>
           <option value="1">Admin</option>
           <option value="2">Cliente</option>
         </select>
 
-        <button onClick={guardar}>GUARDAR</button>
-        <button onClick={cerrar}>CANCELAR</button>
+        <button onClick={guardar} disabled={loading}>
+          {loading ? "GUARDANDO..." : "GUARDAR"}
+        </button>
+        <button onClick={cerrar} disabled={loading}>
+          CANCELAR
+        </button>
 
       </div>
-
     </div>
-
   );
 };
 

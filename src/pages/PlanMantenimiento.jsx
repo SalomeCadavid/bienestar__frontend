@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-import "./PlanDetalle.css";
+import logo from "../assets/TB.png";
+import "./Planes.css";
 
 function PlanMantenimiento() {
 
@@ -10,65 +11,51 @@ function PlanMantenimiento() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const adquirirPlan = async () => {
-
+  const adquirirPlan = () => {
     if (!token) {
       alert("Debes iniciar sesión primero");
       navigate("/login");
       return;
     }
-
-    try {
-
-      setLoading(true);
-
-      await axios.post(
-        "https://bienestar-production-782f.up.railway.app/api/facturas",
-        {
-          productos: [
-            {
-              producto_id: 3,
-              cantidad: 1
-            }
-          ]
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      alert("Plan adquirido correctamente");
-
-    } catch (error) {
-
-      console.log(error.response?.data);
-      alert(error.response?.data?.message || "Error al adquirir el plan");
-
-    } finally {
-      setLoading(false);
-    }
-
+    navigate("/pasarela", { state: { producto_id: 3 } });
   };
 
   return (
-    <div className="plan-detalle-container">
+    <div className="planes-container">
 
-      <h1>PLAN MANTENIMIENTO</h1>
+      {/* Header */}
+      <div className="header">
+        <img src={logo} alt="logo" className="logo" />
+        <button className="btn-header" onClick={() => navigate("/")}>
+          BIENESTAR TOTAL
+        </button>
+        <img src={logo} alt="logo" className="logo" />
+      </div>
 
-      <p>
-        Plan ideal para mantener tu peso ideal, mejorar resistencia y
-        conservar hábitos saludables con seguimiento continuo.
-      </p>
+      {/* Card del plan */}
+      <div className="planes-grid" style={{ gridTemplateColumns: "1fr" }}>
+        <div className="plan-card">
 
-      <button onClick={adquirirPlan} disabled={loading}>
-        {loading ? "Procesando..." : "Adquirir Plan"}
-      </button>
+          <h3>Plan Mantenimiento</h3>
+
+          <p>
+            Diseñado para tonificar tu figura y optimizar tu energía
+            diaria. Mantén tu equilibrio con rutinas dinámicas que te
+            harán sentir mejor que nunca.
+          </p>
+
+          <button onClick={adquirirPlan} disabled={loading}>
+            {loading ? "PROCESANDO..." : "ADQUIRIR PLAN"}
+          </button>
+
+        </div>
+      </div>
+      <footer style={{ marginTop: "auto", paddingBottom: "20px" }}>
+        © 2025 BIENESTAR TOTAL.
+      </footer>
 
     </div>
   );
-
 }
 
 export default PlanMantenimiento;

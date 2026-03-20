@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import api from "../api/api"; // 🔥 RESPETA TU RUTA ORIGINAL
+import api from "../api/api";
 import "./Tienda.css";
 import logo from "../assets/TB.png";
+
+const BASE_URL = "https://bienestar-production-782f.up.railway.app";
 
 const Tienda = () => {
   const navigate = useNavigate();
@@ -11,7 +13,6 @@ const Tienda = () => {
 
   const [productos, setProductos] = useState([]);
 
-  // 🔥 CORRECCIÓN REAL DEL ADMIN
   const isAdmin = user?.rol_id === 1;
 
   useEffect(() => {
@@ -21,7 +22,6 @@ const Tienda = () => {
   const cargarProductos = async () => {
     try {
       const response = await api.get("/productos");
-      console.log("PRODUCTOS:", response.data); // 🔥 DEBUG
       setProductos(response.data);
     } catch (error) {
       console.error("Error cargando productos", error);
@@ -34,7 +34,6 @@ const Tienda = () => {
         producto_id: producto.id,
         cantidad: 1
       });
-
       alert("Producto comprado correctamente");
     } catch (error) {
       console.error(error);
@@ -47,26 +46,17 @@ const Tienda = () => {
 
       <div className="barra-superior">
         <img src={logo} alt="BT" className="logo-bt" />
-
-        <button
-          className="home-btn"
-          onClick={() => navigate("/")}
-        >
+        <button className="home-btn" onClick={() => navigate("/")}>
           BIENESTAR TOTAL
         </button>
-
         <img src={logo} alt="BT" className="logo-bt" />
       </div>
 
       <h2 className="titulo-tienda">Tienda - Bienestar Total</h2>
 
-      {/* 🔥 BOTÓN SOLO ADMIN */}
       {isAdmin && (
-        <button
-          className="admin-btn"
-          onClick={() => navigate("/admin-productos")}
-        >
-          Administrar Productos
+        <button className="admin-btn" onClick={() => navigate("/admin-productos")}>
+          Dashboard Productos
         </button>
       )}
 
@@ -77,7 +67,7 @@ const Tienda = () => {
             <img
               src={
                 producto.imagen
-                  ? `http://127.0.0.1:8000/storage/${producto.imagen}`
+                  ? `${BASE_URL}/storage/${producto.imagen}`
                   : "https://via.placeholder.com/150"
               }
               alt={producto.nombre}

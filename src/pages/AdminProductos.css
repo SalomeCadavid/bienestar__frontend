@@ -97,3 +97,26 @@
   font-size: 30px;
   margin-right: 10px;
 }
+
+.admin-btn {
+  background-color: #111;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.admin-btn:hover {
+  background-color: #333;
+}
+
+.home-button {
+  background-color: #f28c28;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}

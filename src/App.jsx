@@ -6,13 +6,15 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import Tienda from "./pages/Tienda";
+import Tienda from "./pages/tienda.jsx";
 import CalcularIMC from "./pages/Calcularimc";
 import Planes from "./pages/Planes";
 import Nosotros from "./pages/Nosotros";
 import Recomendaciones from "./pages/recomendaciones";
 import AdminProductos from "./pages/AdminProductos";
 import Perfil from "./pages/Perfil";
+import PasarelaPagos from "./pages/PasarelaPagos";
+import AdminUsuarios from "./pages/AdminUsuarios";
 
 /* PLANES */
 import PlanAumentoMasa from "./pages/PlanAumentoMasa";
@@ -126,6 +128,18 @@ function App() {
                 <Perfil />
               </ProtectedRoute>
             }
+          />
+
+          <Route path="/pasarela" 
+          element={
+          <PasarelaPagos />
+          } 
+          />
+
+          <Route path="/admin-usuarios" 
+          element={
+          <AdminUsuarios />
+          } 
           />
 
         </Routes>
