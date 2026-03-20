@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import api from "../api/api";
 import logo from "../assets/TB.png";
 import "./Planes.css";
 
@@ -10,6 +11,11 @@ function PlanControlIntensivo() {
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [precio, setPrecio] = useState(null);
+
+  useEffect(() => {
+    api.get("/productos/5").then((res) => setPrecio(res.data.precio));
+  }, []);
 
   const adquirirPlan = () => {
     if (!token) {
@@ -42,6 +48,12 @@ function PlanControlIntensivo() {
             Programa supervisado para mejorar la salud cardiovascular
             y lograr cambios sostenibles.
           </p>
+
+          {precio && (
+            <p style={{ color: "#000000", fontWeight: "bold", fontSize: 18 }}>
+              ${Number(precio).toLocaleString("es-CO")}
+            </p>
+          )}
 
           <button onClick={adquirirPlan} disabled={loading}>
             {loading ? "PROCESANDO..." : "ADQUIRIR PLAN"}
