@@ -51,7 +51,7 @@ function PlanMantenimiento() {
           </p>
 
           {precio && (
-            <p style={{ color: "#f28c28", fontWeight: "bold", fontSize: 18 }}>
+            <p style={{ color: "#000000", fontWeight: "bold", fontSize: 18 }}>
               ${Number(precio).toLocaleString("es-CO")}
             </p>
           )}

@@ -127,7 +127,7 @@ function PasarelaPagos() {
             <p style={{ margin: 0, fontWeight: "bold", fontSize: 13 }}>
               {nombreProducto}
             </p>
-            <p style={{ margin: 0, color: "#f28c28", fontWeight: "bold", fontSize: 16 }}>
+            <p style={{ margin: 0, color: "#000000", fontWeight: "bold", fontSize: 16 }}>
               Total: ${Number(precioProducto).toLocaleString("es-CO")}
             </p>
           </div>
