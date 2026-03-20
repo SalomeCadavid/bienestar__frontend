@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import api from "../api/api";
@@ -11,11 +11,12 @@ function PasarelaPagos() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Recibe el producto_id desde el plan que llama la pasarela
   const { producto_id } = location.state || {};
 
-  const [metodo, setMetodo] = useState("tarjeta"); // "tarjeta" o "nequi"
+  const [metodo, setMetodo] = useState("tarjeta");
   const [loading, setLoading] = useState(false);
+  const [precioProducto, setPrecioProducto] = useState(null);
+  const [nombreProducto, setNombreProducto] = useState("");
 
   // Campos tarjeta
   const [numeroTarjeta, setNumeroTarjeta] = useState("");
@@ -34,6 +35,43 @@ function PasarelaPagos() {
     { id: 4, nombre: "Plan Pérdida de Grasa" },
     { id: 5, nombre: "Plan Control Intensivo" },
   ];
+
+  // Carga el precio del producto_id que llega
+  useEffect(() => {
+    if (producto_id) {
+      api.get(`/productos/${producto_id}`).then((res) => {
+        setPrecioProducto(res.data.precio);
+        setNombreProducto(res.data.nombre);
+      });
+    }
+  }, [producto_id]);
+
+  // Actualiza precio cuando cambia el select
+  const handlePlanChange = (id) => {
+    setPlan(id);
+    if (id) {
+      api.get(`/productos/${id}`).then((res) => {
+        setPrecioProducto(res.data.precio);
+        setNombreProducto(res.data.nombre);
+      });
+    } else {
+      setPrecioProducto(null);
+      setNombreProducto("");
+    }
+  };
+
+  const handlePlanNequiChange = (id) => {
+    setPlanNequi(id);
+    if (id) {
+      api.get(`/productos/${id}`).then((res) => {
+        setPrecioProducto(res.data.precio);
+        setNombreProducto(res.data.nombre);
+      });
+    } else {
+      setPrecioProducto(null);
+      setNombreProducto("");
+    }
+  };
 
   const pagar = async () => {
     if (!token) {
@@ -82,6 +120,18 @@ function PasarelaPagos() {
 
       {/* Card */}
       <div className="pasarela-card">
+
+        {/* Precio y nombre del plan seleccionado */}
+        {precioProducto && (
+          <div style={{ textAlign: "center", marginBottom: 4 }}>
+            <p style={{ margin: 0, fontWeight: "bold", fontSize: 13 }}>
+              {nombreProducto}
+            </p>
+            <p style={{ margin: 0, color: "#f28c28", fontWeight: "bold", fontSize: 16 }}>
+              Total: ${Number(precioProducto).toLocaleString("es-CO")}
+            </p>
+          </div>
+        )}
 
         {/* Tabs */}
         <div className="pasarela-tabs">
@@ -134,7 +184,7 @@ function PasarelaPagos() {
             <select
               className="pasarela-select"
               value={plan}
-              onChange={(e) => setPlan(e.target.value)}
+              onChange={(e) => handlePlanChange(e.target.value)}
             >
               <option value="">SELECCIONAR PLAN</option>
               {planes.map((p) => (
@@ -157,7 +207,7 @@ function PasarelaPagos() {
             <select
               className="pasarela-select"
               value={planNequi}
-              onChange={(e) => setPlanNequi(e.target.value)}
+              onChange={(e) => handlePlanNequiChange(e.target.value)}
             >
               <option value="">SELECCIONAR PLAN</option>
               {planes.map((p) => (
