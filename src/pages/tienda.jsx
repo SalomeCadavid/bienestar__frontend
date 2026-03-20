@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import api from "../api/api";
-import "./Tienda.css";
+import "./tienda.css";
 import logo from "../assets/TB.png";
 
 const BASE_URL = "https://bienestar-production-782f.up.railway.app";

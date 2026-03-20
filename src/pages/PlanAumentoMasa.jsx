@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-import "./PlanDetalle.css";
+import logo from "../assets/TB.png";
+import "./Planes.css";
 
 function PlanAumentoMasa() {
 
@@ -10,67 +11,51 @@ function PlanAumentoMasa() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const adquirirPlan = async () => {
-
+  const adquirirPlan = () => {
     if (!token) {
       alert("Debes iniciar sesión primero");
       navigate("/login");
       return;
     }
-
-    try {
-
-      setLoading(true);
-
-      const response = await axios.post(
-        "https://bienestar-production-782f.up.railway.app/api/facturas",
-        {
-          productos: [
-            {
-              producto_id: 2,
-              cantidad: 1
-            }
-          ]
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      alert("Plan adquirido correctamente");
-
-    } catch (error) {
-
-      console.log("STATUS:", error.response?.status);
-      console.log("ERROR:", error.response?.data);
-
-      alert(error.response?.data?.message || "Error al adquirir el plan");
-
-    } finally {
-      setLoading(false);
-    }
-
+    navigate("/pasarela", { state: { producto_id: 2 } });
   };
 
   return (
-    <div className="plan-detalle-container">
+    <div className="planes-container">
 
-      <h1>PLAN AUMENTO DE MASA</h1>
+      {/* Header */}
+      <div className="header">
+        <img src={logo} alt="logo" className="logo" />
+        <button className="btn-header" onClick={() => navigate("/")}>
+          BIENESTAR TOTAL
+        </button>
+        <img src={logo} alt="logo" className="logo" />
+      </div>
 
-      <p>
-        Programa diseñado para incrementar masa muscular mediante
-        entrenamiento progresivo, nutrición estratégica y seguimiento mensual.
-      </p>
+      {/* Card del plan */}
+      <div className="planes-grid" style={{ gridTemplateColumns: "1fr" }}>
+        <div className="plan-card">
 
-      <button onClick={adquirirPlan} disabled={loading}>
-        {loading ? "Procesando..." : "Adquirir Plan"}
-      </button>
+          <h3>Plan Aumento de Masa</h3>
+
+          <p>
+            Programa diseñado para incrementar masa muscular mediante
+            entrenamiento progresivo, nutrición estratégica y seguimiento mensual.
+          </p>
+
+          <button onClick={adquirirPlan} disabled={loading}>
+            {loading ? "PROCESANDO..." : "ADQUIRIR PLAN"}
+          </button>
+
+        </div>
+      </div>
+
+      <footer style={{ marginTop: "auto", paddingBottom: "20px" }}>
+        © 2025 BIENESTAR TOTAL.
+      </footer>
 
     </div>
   );
-
 }
 
 export default PlanAumentoMasa;

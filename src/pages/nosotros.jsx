@@ -1,4 +1,4 @@
-import "./Nosotros.css";
+import "./nosotros.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/TB.png";
 import mancuernas from "../assets/TB.png"; // usa tu imagen

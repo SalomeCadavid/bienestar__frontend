@@ -1,4 +1,4 @@
-import "./Recomendaciones.css";
+import "./recomendaciones.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/TB.png";
 import pesas from "../assets/TB.png"; // usa tu imagen
