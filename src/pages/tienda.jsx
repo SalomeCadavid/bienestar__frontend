@@ -28,17 +28,14 @@ const Tienda = () => {
     }
   };
 
-  const comprarProducto = async (producto) => {
-    try {
-      await api.post("/facturas", {
-        producto_id: producto.id,
-        cantidad: 1
-      });
-      alert("Producto comprado correctamente");
-    } catch (error) {
-      console.error(error);
-      alert("Error al comprar");
-    }
+  // Filtra según rol: admin ve todo, cliente solo ve productos (tipo 2)
+  const productosFiltrados = isAdmin
+    ? productos
+    : productos.filter((p) => Number(p.tipo_producto_id) === 2);
+
+  const handleComprar = (producto) => {
+    // Todos van a la pasarela con el precio del producto
+    navigate("/pasarela", { state: { producto_id: producto.id } });
   };
 
   return (
@@ -61,7 +58,7 @@ const Tienda = () => {
       )}
 
       <div className="productos-grid">
-        {productos.map((producto) => (
+        {productosFiltrados.map((producto) => (
           <div key={producto.id} className="producto-card">
 
             <img
@@ -79,7 +76,7 @@ const Tienda = () => {
 
             <button
               className="comprar-btn"
-              onClick={() => comprarProducto(producto)}
+              onClick={() => handleComprar(producto)}
             >
               Comprar
             </button>
