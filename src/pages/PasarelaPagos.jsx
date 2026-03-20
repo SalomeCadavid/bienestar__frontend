@@ -36,7 +36,6 @@ function PasarelaPagos() {
     { id: 5, nombre: "Plan Control Intensivo" },
   ];
 
-  // Carga el precio del producto_id que llega
   useEffect(() => {
     if (producto_id) {
       api.get(`/productos/${producto_id}`).then((res) => {
@@ -46,7 +45,6 @@ function PasarelaPagos() {
     }
   }, [producto_id]);
 
-  // Actualiza precio cuando cambia el select
   const handlePlanChange = (id) => {
     setPlan(id);
     if (id) {
@@ -73,18 +71,53 @@ function PasarelaPagos() {
     }
   };
 
+  const validar = () => {
+    if (metodo === "tarjeta") {
+      if (!numeroTarjeta || numeroTarjeta.length < 16) {
+        alert("Ingresa un número de tarjeta válido de 16 dígitos");
+        return false;
+      }
+      if (!titular.trim()) {
+        alert("Ingresa el nombre del titular");
+        return false;
+      }
+      if (!fecha || fecha.length < 5) {
+        alert("Ingresa la fecha de vencimiento (MM/AA)");
+        return false;
+      }
+      if (!cvv || cvv.length < 3) {
+        alert("Ingresa el CVV de 3 dígitos");
+        return false;
+      }
+      if (!plan) {
+        alert("Selecciona un plan");
+        return false;
+      }
+    }
+
+    if (metodo === "nequi") {
+      if (!celular || celular.length < 10) {
+        alert("Ingresa un número de celular válido de 10 dígitos");
+        return false;
+      }
+      if (!planNequi) {
+        alert("Selecciona un plan");
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   const pagar = async () => {
     if (!token) {
       navigate("/login");
       return;
     }
 
-    const planSeleccionado = metodo === "tarjeta" ? plan : planNequi;
+    if (!validar()) return;
 
-    if (!planSeleccionado) {
-      alert("Selecciona un plan");
-      return;
-    }
+    const planSeleccionado = metodo === "tarjeta" ? plan : planNequi;
 
     try {
       setLoading(true);
@@ -121,7 +154,7 @@ function PasarelaPagos() {
       {/* Card */}
       <div className="pasarela-card">
 
-        {/* Precio y nombre del plan seleccionado */}
+        {/* Precio y nombre */}
         {precioProducto && (
           <div style={{ textAlign: "center", marginBottom: 4 }}>
             <p style={{ margin: 0, fontWeight: "bold", fontSize: 13 }}>
