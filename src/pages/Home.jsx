@@ -24,7 +24,6 @@ navigate("/", { replace: true });
 
 return ( <div className="home-container">
 
-```
   <header className="home-header">
     <img src={logo} alt="BT" className="logo-bt" />
 

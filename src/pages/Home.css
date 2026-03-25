@@ -69,20 +69,38 @@ html, body, #root {
 
 @media (max-width: 768px) {
   .home-header {
-    padding: 10px 15px;
+    padding: 10px 12px;
     border-radius: 30px;
     margin: 10px;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
   }
-  .nav-buttons { flex-wrap: wrap; gap: 8px; }
-  .nav-buttons button { padding: 6px 12px; font-size: 12px; }
+
+  .logo-bt {
+    width: 40px;
+    flex-shrink: 0;
+  }
+
+  .nav-buttons {
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .nav-buttons button {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
   .home-main {
     flex-direction: column;
     padding: 20px;
     text-align: center;
     gap: 20px;
   }
+
   .text-section h1 { font-size: 28px; }
   .text-section p { font-size: 15px; }
   .image-section img { width: 100%; max-width: 300px; }
