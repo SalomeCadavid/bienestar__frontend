@@ -38,7 +38,6 @@
   border-radius: 20px;
   margin-bottom: 20px;
   padding: 15px 30px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -108,9 +107,7 @@
   margin-bottom: 10px;
 }
 
-.admin-btn:hover {
-  background-color: #333;
-}
+.admin-btn:hover { background-color: #333; }
 
 .home-button {
   background-color: #f28c28;
@@ -119,4 +116,24 @@
   border-radius: 20px;
   font-weight: bold;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .barra-superior {
+    padding: 10px 15px;
+    margin: 10px;
+    border-radius: 40px;
+  }
+  .logo-bt { width: 40px; }
+  .home-button { padding: 8px 14px; font-size: 12px; }
+  .productos-admin { padding: 0 10px; }
+  .producto-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 15px;
+  }
+  .producto-nombre { font-size: 16px; text-align: left; }
+  .botones { flex-direction: row; }
+  .agregar-producto { font-size: 16px; }
 }

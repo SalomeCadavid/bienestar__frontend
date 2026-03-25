@@ -1,8 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 .register-container {
   min-height: 100vh;
@@ -14,7 +10,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* HEADER */
 .register-header {
   width: 98%;
   background-color: #ffffff;
@@ -26,10 +21,7 @@
   margin: 15px;
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 22px;
-}
+.logo { font-weight: bold; font-size: 22px; }
 
 .title {
   background: #f28c28;
@@ -40,7 +32,6 @@
   color: black;
 }
 
-/* CARD */
 .register-card {
   background: #ffffff;
   border: 3px solid #f28c28;
@@ -51,7 +42,6 @@
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  
 }
 
 .register-card h2 {
@@ -82,17 +72,8 @@
   cursor: pointer;
 }
 
-/* LOGIN SECTION */
-.login-section {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.login-section p {
-  font-size: 12px;
-  margin-bottom: 10px;
-  color: black;
-}
+.login-section { text-align: center; margin-top: 20px; }
+.login-section p { font-size: 12px; margin-bottom: 10px; color: black; }
 
 .btn-secondary {
   padding: 8px 30px;
@@ -103,9 +84,15 @@
   cursor: pointer;
 }
 
-/* FOOTER */
-.footer {
-  margin-bottom: 10px;
-  font-size: 12px;
-  color: black;
+.footer { margin-bottom: 10px; font-size: 12px; color: black; }
+
+@media (max-width: 600px) {
+  .register-header {
+    width: 95%;
+    padding: 10px 15px;
+    border-radius: 30px;
+    margin: 10px;
+  }
+  .title { padding: 6px 16px; font-size: 14px; }
+  .register-card { width: 90%; padding: 25px 20px; }
 }

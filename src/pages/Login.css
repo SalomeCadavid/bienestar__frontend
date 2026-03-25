@@ -1,8 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 .login-container {
   min-height: 100vh;
@@ -13,7 +9,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* HEADER */
 .login-header {
   width: 98%;
   background-color: #ffffff;
@@ -25,10 +20,7 @@
   margin: 15px;
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 22px;
-}
+.logo { font-weight: bold; font-size: 22px; }
 
 .title {
   background: #f28c28;
@@ -38,10 +30,7 @@
   font-size: 20px;
 }
 
-/* BACK BUTTON */
-.back-button {
-  padding: 10px 40px;
-}
+.back-button { padding: 10px 40px; }
 
 .back-button button {
   background: #f28c28;
@@ -52,7 +41,6 @@
   cursor: pointer;
 }
 
-/* CARD */
 .login-card {
   align-self: center;
   background: #ffffff;
@@ -83,7 +71,6 @@
   font-size: 14px;
 }
 
-/* FOOTER CARD */
 .login-footer {
   display: flex;
   justify-content: space-between;
@@ -91,9 +78,7 @@
   margin-top: 10px;
 }
 
-.forgot {
-  font-size: 12px;
-}
+.forgot { font-size: 12px; }
 
 .btn-primary {
   padding: 8px 20px;
@@ -104,10 +89,20 @@
   cursor: pointer;
 }
 
-/* FOOTER */
 .footer {
   text-align: center;
   margin-bottom: 10px;
   font-size: 12px;
   color: black;
+}
+
+@media (max-width: 600px) {
+  .login-header {
+    width: 95%;
+    padding: 10px 15px;
+    border-radius: 30px;
+    margin: 10px;
+  }
+  .title { padding: 6px 20px; font-size: 14px; }
+  .login-card { width: 90%; padding: 25px 20px; }
 }

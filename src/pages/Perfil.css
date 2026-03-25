@@ -87,3 +87,18 @@ border:3px solid #f28c28;
   cursor: pointer;
   margin-bottom: 10px;
 }
+
+@media (max-width: 600px) {
+  .perfil-header {
+    padding: 8px 12px;
+    border-radius: 30px;
+  }
+  .logo-bt { width: 40px; }
+  .home-btn { padding: 6px 12px; font-size: 12px; }
+  .perfil-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .perfil-card { width: 90%; }
+  .config-card { width: 90%; }
+}
