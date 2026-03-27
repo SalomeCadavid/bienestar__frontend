@@ -1,6 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import api from "../api/api";
 import "./Perfil.css";
 import logo from "../assets/TB.png";
 
@@ -8,12 +9,28 @@ const Perfil = () => {
 
   const { user, logout, fetchUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [tienePlan, setTienePlan] = useState(false);
 
   useEffect(() => {
     if (fetchUser) {
       fetchUser();
     }
+    verificarPlan();
   }, []);
+
+  const verificarPlan = async () => {
+    try {
+      const res = await api.get("/facturas");
+      // Si tiene al menos una factura con un plan (tipo_producto_id 1), tiene plan activo
+      const facturas = res.data?.data || res.data || [];
+      const planComprado = facturas.some((f) =>
+        f.detalles?.some((d) => d.producto?.tipo_producto_id === 1)
+      );
+      setTienePlan(planComprado);
+    } catch (error) {
+      console.error("Error verificando plan:", error);
+    }
+  };
 
   const isAdmin = user?.rol_id === 1;
 
@@ -33,15 +50,19 @@ const Perfil = () => {
     return "Control intensivo";
   };
 
+  const rutasPlanes = {
+    "Aumento de masa":   "/rutina-aumento-masa",
+    "Mantenimiento":     "/rutina-mantenimiento",
+    "Pérdida de grasa":  "/rutina-perdida-grasa",
+    "Control intensivo": "/rutina-control-intensivo",
+  };
+
   return (
     <div className="perfil-container">
 
       <div className="perfil-header">
         <img src={logo} alt="BT" className="logo-bt" />
-        <button
-          className="home-btn"
-          onClick={() => navigate("/")}
-        >
+        <button className="home-btn" onClick={() => navigate("/")}>
           BIENESTAR TOTAL
         </button>
         <img src={logo} alt="BT" className="logo-bt" />
@@ -49,7 +70,6 @@ const Perfil = () => {
 
       <h2 className="titulo-perfil">PERFIL DE USUARIO</h2>
 
-      {/* Botón solo visible para admin */}
       {isAdmin && (
         <button
           className="admin-btn"
@@ -92,6 +112,19 @@ const Perfil = () => {
             <p><b>Plan:</b> {obtenerPlan()}</p>
             <p><b>Duración:</b> 12 semanas</p>
           </div>
+
+          {/* Botón solo visible si tiene plan comprado */}
+          {tienePlan && (
+            <button
+              className="btn-perfil"
+              onClick={() => {
+                const ruta = rutasPlanes[obtenerPlan()] || "/";
+                navigate(ruta);
+              }}
+            >
+              VER MI RUTINA
+            </button>
+          )}
 
         </div>
 
