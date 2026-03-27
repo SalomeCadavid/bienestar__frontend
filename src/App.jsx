@@ -16,6 +16,7 @@ import Perfil from "./pages/Perfil";
 import PasarelaPagos from "./pages/PasarelaPagos";
 import AdminUsuarios from "./pages/AdminUsuarios";
 import PasarelaProductos from "./pages/PasarelaProductos";
+import RutinaMantenimiento from "./pages/RutinaMantenimiento";
 
 /* PLANES */
 import PlanAumentoMasa from "./pages/PlanAumentoMasa";
@@ -146,6 +147,12 @@ function App() {
           <Route path="/pasarela-producto" 
           element={
           <PasarelaProductos />
+          } 
+          />
+
+          <Route path="/rutina-mantenimiento" 
+          element={
+          <RutinaMantenimiento />
           } 
           />
 

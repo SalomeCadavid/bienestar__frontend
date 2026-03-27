@@ -1,0 +1,56 @@
+.rutina-badge {
+  margin-top: 30px;
+  background-color: #f28c28;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+  border-radius: 40px;
+  padding: 14px 60px;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.rutina-tabla-wrapper {
+  margin-top: 40px;
+  width: 90%;
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.rutina-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  font-size: 13px;
+}
+
+.rutina-tabla th {
+  background-color: #f28c28;
+  color: white;
+  padding: 12px 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.rutina-tabla td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+.rutina-tabla tr:nth-child(even) td {
+  background-color: #fafafa;
+}
+
+.rutina-tabla tr:hover td {
+  background-color: #fff3e0;
+}
+
+@media (max-width: 768px) {
+  .rutina-badge {
+    font-size: 16px;
+    padding: 10px 30px;
+  }
+  .rutina-tabla { font-size: 11px; }
+  .rutina-tabla th, .rutina-tabla td { padding: 7px 6px; }
+}

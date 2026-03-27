@@ -36,6 +36,13 @@ function PasarelaPagos() {
     { id: 5, nombre: "Plan Control Intensivo" },
   ];
 
+  const rutasPlanes = {
+    2: "/rutina-aumento-masa",
+    3: "/rutina-mantenimiento",
+    4: "/rutina-perdida-grasa",
+    5: "/rutina-control-intensivo",
+  };
+
   useEffect(() => {
     if (producto_id) {
       api.get(`/productos/${producto_id}`).then((res) => {
@@ -125,7 +132,8 @@ function PasarelaPagos() {
         productos: [{ producto_id: Number(planSeleccionado), cantidad: 1 }]
       });
       alert("¡Pago exitoso! Plan adquirido correctamente.");
-      navigate("/");
+      const ruta = rutasPlanes[Number(planSeleccionado)] || "/";
+      navigate(ruta);
     } catch (error) {
       console.log(error.response?.data);
       alert(error.response?.data?.message || "Error al procesar el pago");
@@ -137,7 +145,6 @@ function PasarelaPagos() {
   return (
     <div className="pasarela-container">
 
-      {/* Header */}
       <div className="pasarela-header">
         <img src={logo} alt="logo" className="pasarela-logo" />
         <button className="pasarela-btn-home" onClick={() => navigate("/")}>
@@ -146,15 +153,12 @@ function PasarelaPagos() {
         <img src={logo} alt="logo" className="pasarela-logo" />
       </div>
 
-      {/* Título */}
       <div className="pasarela-titulo-badge">
         PASARELA DE PAGOS
       </div>
 
-      {/* Card */}
       <div className="pasarela-card">
 
-        {/* Precio y nombre */}
         {precioProducto && (
           <div style={{ textAlign: "center", marginBottom: 4 }}>
             <p style={{ margin: 0, fontWeight: "bold", fontSize: 13 }}>
@@ -166,7 +170,6 @@ function PasarelaPagos() {
           </div>
         )}
 
-        {/* Tabs */}
         <div className="pasarela-tabs">
           <button
             className={`pasarela-tab ${metodo === "tarjeta" ? "activo" : ""}`}
@@ -182,43 +185,23 @@ function PasarelaPagos() {
           </button>
         </div>
 
-        {/* Formulario Tarjeta */}
         {metodo === "tarjeta" && (
           <div className="pasarela-form">
-            <input
-              className="pasarela-input"
-              placeholder="NÚMERO DE TARJETA"
-              maxLength={16}
-              value={numeroTarjeta}
-              onChange={(e) => setNumeroTarjeta(e.target.value)}
-            />
-            <input
-              className="pasarela-input"
-              placeholder="NOMBRE DEL TITULAR"
-              value={titular}
-              onChange={(e) => setTitular(e.target.value)}
-            />
+            <input className="pasarela-input" placeholder="NÚMERO DE TARJETA"
+              maxLength={16} value={numeroTarjeta}
+              onChange={(e) => setNumeroTarjeta(e.target.value)} />
+            <input className="pasarela-input" placeholder="NOMBRE DEL TITULAR"
+              value={titular} onChange={(e) => setTitular(e.target.value)} />
             <div className="pasarela-row">
-              <input
-                className="pasarela-input"
-                placeholder="MM/AA"
-                maxLength={5}
-                value={fecha}
-                onChange={(e) => setFecha(e.target.value)}
-              />
-              <input
-                className="pasarela-input"
-                placeholder="CVV"
-                maxLength={3}
-                value={cvv}
-                onChange={(e) => setCvv(e.target.value)}
-              />
+              <input className="pasarela-input" placeholder="MM/AA"
+                maxLength={5} value={fecha}
+                onChange={(e) => setFecha(e.target.value)} />
+              <input className="pasarela-input" placeholder="CVV"
+                maxLength={3} value={cvv}
+                onChange={(e) => setCvv(e.target.value)} />
             </div>
-            <select
-              className="pasarela-select"
-              value={plan}
-              onChange={(e) => handlePlanChange(e.target.value)}
-            >
+            <select className="pasarela-select" value={plan}
+              onChange={(e) => handlePlanChange(e.target.value)}>
               <option value="">SELECCIONAR PLAN</option>
               {planes.map((p) => (
                 <option key={p.id} value={p.id}>{p.nombre}</option>
@@ -227,21 +210,13 @@ function PasarelaPagos() {
           </div>
         )}
 
-        {/* Formulario Nequi */}
         {metodo === "nequi" && (
           <div className="pasarela-form">
-            <input
-              className="pasarela-input"
-              placeholder="NÚMERO DE CELULAR"
-              maxLength={10}
-              value={celular}
-              onChange={(e) => setCelular(e.target.value)}
-            />
-            <select
-              className="pasarela-select"
-              value={planNequi}
-              onChange={(e) => handlePlanNequiChange(e.target.value)}
-            >
+            <input className="pasarela-input" placeholder="NÚMERO DE CELULAR"
+              maxLength={10} value={celular}
+              onChange={(e) => setCelular(e.target.value)} />
+            <select className="pasarela-select" value={planNequi}
+              onChange={(e) => handlePlanNequiChange(e.target.value)}>
               <option value="">SELECCIONAR PLAN</option>
               {planes.map((p) => (
                 <option key={p.id} value={p.id}>{p.nombre}</option>
@@ -250,11 +225,7 @@ function PasarelaPagos() {
           </div>
         )}
 
-        <button
-          className="pasarela-btn-pagar"
-          onClick={pagar}
-          disabled={loading}
-        >
+        <button className="pasarela-btn-pagar" onClick={pagar} disabled={loading}>
           {loading ? "PROCESANDO..." : "PAGAR"}
         </button>
 
