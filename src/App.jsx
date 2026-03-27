@@ -15,6 +15,7 @@ import AdminProductos from "./pages/AdminProductos";
 import Perfil from "./pages/Perfil";
 import PasarelaPagos from "./pages/PasarelaPagos";
 import AdminUsuarios from "./pages/AdminUsuarios";
+import PasarelaProductos from "./pages/PasarelaProductos";
 
 /* PLANES */
 import PlanAumentoMasa from "./pages/PlanAumentoMasa";
@@ -139,6 +140,12 @@ function App() {
           <Route path="/admin-usuarios" 
           element={
           <AdminUsuarios />
+          } 
+          />
+
+          <Route path="/pasarela-producto" 
+          element={
+          <PasarelaProductos />
           } 
           />
 

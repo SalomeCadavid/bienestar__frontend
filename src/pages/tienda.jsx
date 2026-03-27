@@ -34,8 +34,7 @@ const Tienda = () => {
     : productos.filter((p) => Number(p.tipo_producto_id) === 2);
 
   const handleComprar = (producto) => {
-    // Todos van a la pasarela con el precio del producto
-    navigate("/pasarela", { state: { producto_id: producto.id } });
+    navigate("/pasarela-producto", { state: { producto_id: producto.id } });
   };
 
   return (
