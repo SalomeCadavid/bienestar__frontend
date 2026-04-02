@@ -5,14 +5,13 @@ import "./AdminProductos.css";
 import ProductoModal from "../components/ProductoModal";
 import logo from "../assets/TB.png";
 
-const BASE_URL = "https://bienestar-production-782f.up.railway.app";
+const PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23ddd'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-size='12'%3ESin imagen%3C/text%3E%3C/svg%3E";
 
 const AdminProductos = () => {
   const [productos, setProductos] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [productoEditando, setProductoEditando] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +34,6 @@ const AdminProductos = () => {
 
   const eliminarProducto = async (id) => {
     if (!window.confirm("¿Seguro que quieres eliminar este producto?")) return;
-
     try {
       await api.delete(`/productos/${id}`);
       cargarProductos();
@@ -77,21 +75,14 @@ const AdminProductos = () => {
 
         {!loading && productos.map((p) => (
           <div key={p.id} className="producto-row">
-
             <img
-              src={
-                p.imagen
-                  ? `${BASE_URL}/storage/${p.imagen}`
-                  : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23ddd'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-size='12'%3ESin imagen%3C/text%3E%3C/svg%3E"
-              }
+              src={p.imagen || PLACEHOLDER}
               alt={p.nombre}
               className="producto-img"
             />
-
             <div className="producto-nombre">
               {p.nombre?.toUpperCase()}
             </div>
-
             <div className="botones">
               <button className="btn-editar" onClick={() => abrirEditar(p)}>
                 EDITAR
@@ -100,7 +91,6 @@ const AdminProductos = () => {
                 BORRAR
               </button>
             </div>
-
           </div>
         ))}
 
