@@ -95,7 +95,7 @@ const Perfil = () => {
 
           <button
             className="btn-perfil"
-            onClick={() => navigate("/editar-perfil")}
+            onClick={() => navigate("/calcular-imc")}
           >
             EDITAR PERFIL
           </button>
