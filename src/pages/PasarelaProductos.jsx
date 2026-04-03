@@ -80,7 +80,7 @@ function PasarelaProductos() {
         productos: [{ producto_id: Number(producto_id), cantidad: 1 }]
       });
       alert("¡Pago exitoso! Producto adquirido correctamente.");
-      navigate("/tienda");
+      navigate("/productos");
     } catch (error) {
       console.log(error.response?.data);
       alert(error.response?.data?.message || "Error al procesar el pago");

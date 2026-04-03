@@ -17,6 +17,9 @@ import PasarelaPagos from "./pages/PasarelaPagos";
 import AdminUsuarios from "./pages/AdminUsuarios";
 import PasarelaProductos from "./pages/PasarelaProductos";
 import RutinaMantenimiento from "./pages/RutinaMantenimiento";
+import RutinaAumentoMasa from "./pages/RutinaAumentoMasa";
+import RutinaPerdidaGrasa from "./pages/RutinaPerdidaGrasa";
+import RutinaControlIntensivo from "./pages/RutinaControlIntensivo";
 
 /* PLANES */
 import PlanAumentoMasa from "./pages/PlanAumentoMasa";
@@ -86,6 +89,24 @@ function App() {
             }
           />
 
+          {/* RUTINAS */}
+
+          <Route path="/rutina-mantenimiento"
+            element={<RutinaMantenimiento />}
+          />
+
+          <Route path="/rutina-aumento-masa"
+            element={<RutinaAumentoMasa />}
+          />
+
+          <Route path="/rutina-perdida-grasa"
+            element={<RutinaPerdidaGrasa />}
+          />
+
+          <Route path="/rutina-control-intensivo"
+            element={<RutinaControlIntensivo />}
+          />
+
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/recomendaciones" element={<Recomendaciones />} />
 
@@ -123,6 +144,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/perfil"
             element={
@@ -132,28 +154,16 @@ function App() {
             }
           />
 
-          <Route path="/pasarela" 
-          element={
-          <PasarelaPagos />
-          } 
+          <Route path="/pasarela"
+            element={<PasarelaPagos />}
           />
 
-          <Route path="/admin-usuarios" 
-          element={
-          <AdminUsuarios />
-          } 
+          <Route path="/admin-usuarios"
+            element={<AdminUsuarios />}
           />
 
-          <Route path="/pasarela-producto" 
-          element={
-          <PasarelaProductos />
-          } 
-          />
-
-          <Route path="/rutina-mantenimiento" 
-          element={
-          <RutinaMantenimiento />
-          } 
+          <Route path="/pasarela-producto"
+            element={<PasarelaProductos />}
           />
 
         </Routes>

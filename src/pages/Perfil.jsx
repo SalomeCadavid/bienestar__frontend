@@ -134,12 +134,6 @@ const Perfil = () => {
 
         <h3>CONFIGURACIÓN</h3>
 
-        <button
-          className="btn-perfil"
-          onClick={() => navigate("/cambiar-password")}
-        >
-          CAMBIAR CONTRASEÑA
-        </button>
 
         <button
           className="btn-perfil"
